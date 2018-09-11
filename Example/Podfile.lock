@@ -1,0 +1,16 @@
+PODS:
+  - RxEndpoints (0.1.0)
+
+DEPENDENCIES:
+  - RxEndpoints (from `../`)
+
+EXTERNAL SOURCES:
+  RxEndpoints:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  RxEndpoints: 4fe86e5303170a2704ea1cf04b2239cca201531a
+
+PODFILE CHECKSUM: abd0a39f5ae2be112ed710a058c925b6397535d3
+
+COCOAPODS: 1.5.3

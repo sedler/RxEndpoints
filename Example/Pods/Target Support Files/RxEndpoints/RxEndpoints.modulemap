@@ -1,0 +1,6 @@
+framework module RxEndpoints {
+  umbrella header "RxEndpoints-umbrella.h"
+
+  export *
+  module * { export * }
+}
