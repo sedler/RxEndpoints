@@ -7,18 +7,34 @@
 //
 
 import UIKit
+import RxEndpoints
+import RxSwift
 
 class ViewController: UIViewController {
-
+    private let disposeBag = DisposeBag()
+    
+    private let apiClient: APIClient = APIClient(baseURL: URL(string: "https://jsonplaceholder.typicode.com")!, logger: NetworkLogger())
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
     }
-
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        apiClient.request(API.getPosts())
+            .subscribe(onSuccess: { posts in
+                print(posts)
+            }) { error in
+                print(error.localizedDescription)
+            }
+            .disposed(by: disposeBag)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
 }
-

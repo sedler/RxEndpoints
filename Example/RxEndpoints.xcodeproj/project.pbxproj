@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0E566B5721479E9A0034CD18 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E566B5621479E9A0034CD18 /* API.swift */; };
+		0E566B5921479EA40034CD18 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E566B5821479EA40034CD18 /* Post.swift */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
@@ -28,12 +30,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0E566B5621479E9A0034CD18 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		0E566B5821479EA40034CD18 /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		15EA77896FF7FAE2003540C6 /* Pods_RxEndpoints_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RxEndpoints_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		432C9A50B8DEDEFC0D468D58 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		432C9A50B8DEDEFC0D468D58 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		55CD298A6E11E4894F075D03 /* Pods-RxEndpoints_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxEndpoints_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RxEndpoints_Tests/Pods-RxEndpoints_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		5862E7461225CEC37A85377B /* Pods-RxEndpoints_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxEndpoints_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-RxEndpoints_Example/Pods-RxEndpoints_Example.release.xcconfig"; sourceTree = "<group>"; };
 		5C93C4C44352AF79DA2027EF /* Pods_RxEndpoints_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RxEndpoints_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		5CCFB9476C0745743D9D096F /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		5CCFB9476C0745743D9D096F /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		607FACD01AFB9204008FA782 /* RxEndpoints_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RxEndpoints_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACD51AFB9204008FA782 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -44,7 +48,7 @@
 		607FACE51AFB9204008FA782 /* RxEndpoints_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RxEndpoints_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
-		8F64D739047D2266B0638EE2 /* RxEndpoints.podspec */ = {isa = PBXFileReference; includeInIndex = 1; name = RxEndpoints.podspec; path = ../RxEndpoints.podspec; sourceTree = "<group>"; };
+		8F64D739047D2266B0638EE2 /* RxEndpoints.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = RxEndpoints.podspec; path = ../RxEndpoints.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		E2D1DDDD0A3DE0544195C1F2 /* Pods-RxEndpoints_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxEndpoints_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RxEndpoints_Example/Pods-RxEndpoints_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		FCD963C20EB4C06F6B6066A2 /* Pods-RxEndpoints_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxEndpoints_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-RxEndpoints_Tests/Pods-RxEndpoints_Tests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -102,6 +106,8 @@
 		607FACD21AFB9204008FA782 /* Example for RxEndpoints */ = {
 			isa = PBXGroup;
 			children = (
+				0E566B5621479E9A0034CD18 /* API.swift */,
+				0E566B5821479EA40034CD18 /* Post.swift */,
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
 				607FACD71AFB9204008FA782 /* ViewController.swift */,
 				607FACD91AFB9204008FA782 /* Main.storyboard */,
@@ -286,11 +292,15 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-RxEndpoints_Example/Pods-RxEndpoints_Example-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/RxEndpoints/RxEndpoints.framework",
+				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxEndpoints.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -323,7 +333,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
+				0E566B5721479E9A0034CD18 /* API.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
+				0E566B5921479EA40034CD18 /* Post.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
