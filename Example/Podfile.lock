@@ -1,9 +1,9 @@
 PODS:
   - Alamofire (4.7.3)
-  - RxEndpoints (1.0.0):
+  - RxEndpoints (1.0.1):
     - Alamofire (~> 4.0)
     - RxSwift (~> 4.0)
-  - RxSwift (4.2.0)
+  - RxSwift (4.3.1)
 
 DEPENDENCIES:
   - RxEndpoints (from `../`)
@@ -19,8 +19,8 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
-  RxEndpoints: 729875bd81872e49ad079a953c9af77ce52f05da
-  RxSwift: 99e10317ddfcc7fbe01356aafd118fde4a0be104
+  RxEndpoints: deba7f76742121c8853fd07ae6395f7decc22f8f
+  RxSwift: fe0fd770a43acdb7d0a53da411c9b892e69bb6e4
 
 PODFILE CHECKSUM: abd0a39f5ae2be112ed710a058c925b6397535d3
 
