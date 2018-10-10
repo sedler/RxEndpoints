@@ -35,9 +35,14 @@ public final class APIClient {
     private var logger: NetworkLogger?
     private var errorHandler: APIErrorHandler?
     
-    public init(baseURL: URL, configuration: URLSessionConfiguration = URLSessionConfiguration.default, headers: [String: String] = [:], logger: NetworkLogger? = nil, errorHandler: APIErrorHandler? = nil) {
+    public init(baseURL: URL, configuration: URLSessionConfiguration = URLSessionConfiguration.default, trustedDomains: [String] = [], headers: [String: String] = [:], logger: NetworkLogger? = nil, errorHandler: APIErrorHandler? = nil) {
+        
+        var serverTrustPolicies: [String: ServerTrustPolicy] = [:]
+        trustedDomains.forEach({ serverTrustPolicies[$0] = .disableEvaluation })
+        let serverTrustPolicyManger = ServerTrustPolicyManager(policies: serverTrustPolicies)
+        
         self.baseURL = baseURL
-        self.manager = Alamofire.SessionManager(configuration: configuration)
+        self.manager = Alamofire.SessionManager(configuration: configuration, serverTrustPolicyManager: serverTrustPolicyManger)
         self.headers = headers
         self.logger = logger
         self.errorHandler = errorHandler
@@ -82,6 +87,9 @@ public final class APIClient {
     }
     
     private func url(path: String) -> URL {
+        if (path.starts(with: "http://") || path.starts(with: "https://")), let url = URL(string: path) {
+            return url
+        }
         return baseURL.appendingPathComponent(path)
     }
 }

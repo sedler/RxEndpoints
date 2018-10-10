@@ -218,6 +218,7 @@
 				TargetAttributes = {
 					607FACCF1AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
+						DevelopmentTeam = ZEXELP28D3;
 						LastSwiftMigration = 1000;
 					};
 					607FACE41AFB9204008FA782 = {
@@ -481,6 +482,7 @@
 			baseConfigurationReference = E2D1DDDD0A3DE0544195C1F2 /* Pods-RxEndpoints_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = ZEXELP28D3;
 				INFOPLIST_FILE = RxEndpoints/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
@@ -495,6 +497,7 @@
 			baseConfigurationReference = 5862E7461225CEC37A85377B /* Pods-RxEndpoints_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = ZEXELP28D3;
 				INFOPLIST_FILE = RxEndpoints/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
