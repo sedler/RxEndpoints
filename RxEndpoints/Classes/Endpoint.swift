@@ -67,7 +67,7 @@ public final class Endpoint<Response> {
 }
 
 extension Endpoint where Response: Swift.Decodable {
-    public convenience init(decoder: JSONDecoder = JSONDecoder(), method: Method = .get, path: String, parameters: [String: Any]? = nil, encoding: ParameterEncoding = .url) {
+    public convenience init(method: Method = .get, path: String, parameters: [String: Any]? = nil, encoding: ParameterEncoding = .url, decoder: JSONDecoder = JSONDecoder()) {
         self.init(method: method, path: path, parameters: parameters, encoding: encoding) {
             try decoder.decode(Response.self, from: $0)
         }
