@@ -30,7 +30,7 @@ extension APIError: LocalizedError {
 public final class APIClient {
     private let manager: Alamofire.SessionManager
     private let baseURL: URL
-    private let queue = DispatchQueue(label: "com.martindaum.APIClient")
+    private let queue = DispatchQueue(label: NSUUID().uuidString)
     private var headers: [String: String] = [:]
     private var logger: NetworkLogger?
     
@@ -123,14 +123,14 @@ public final class APIClient {
 }
 
 extension DataRequest {
-    public func log(with logger: NetworkLogger?, parameters: [String: Any]?) -> DataRequest {
+    fileprivate func log(with logger: NetworkLogger?, parameters: [String: Any]?) -> DataRequest {
         logger?.logRequest(self, parameters: parameters)
         return self
     }
 }
 
 extension DataRequest {
-    public func customValidate(_ validator: RequestValidator?) -> Self {
+    fileprivate func customValidate(_ validator: RequestValidator?) -> Self {
         guard let validator = validator else {
             return validate()
         }
