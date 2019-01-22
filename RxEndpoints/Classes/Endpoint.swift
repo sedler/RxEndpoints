@@ -8,6 +8,22 @@
 import Foundation
 import Alamofire
 
+private struct JSONStringArrayEncoding: Alamofire.ParameterEncoding {
+    private let array: [Any]
+    
+    init(array: [Any]) {
+        self.array = array
+    }
+    
+    func encode(_ urlRequest: URLRequestConvertible, with parameters: Parameters?) throws -> URLRequest {
+        var urlRequest = try urlRequest.asURLRequest()
+        let data = try JSONSerialization.data(withJSONObject: array, options: [])
+        urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        urlRequest.httpBody = data
+        return urlRequest
+    }
+}
+
 public enum Method: String {
     case options, get, head, post, put, patch, delete, trace, connect
     
@@ -36,7 +52,7 @@ public enum Method: String {
 }
 
 public enum ParameterEncoding {
-    case json, url, plist
+    case json, url, plist, array([Any])
     
     var encoding: Alamofire.ParameterEncoding {
         switch self {
@@ -46,6 +62,8 @@ public enum ParameterEncoding {
             return JSONEncoding.default
         case .plist:
             return PropertyListEncoding.default
+        case .array(let array):
+            return JSONStringArrayEncoding(array: array)
         }
     }
 }

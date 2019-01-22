@@ -13,7 +13,7 @@ import RxSwift
 class ViewController: UIViewController {
     private let disposeBag = DisposeBag()
     
-    private let apiClient: APIClient = APIClient(baseURL: URL(string: "https://jsonplaceholder.typicode.com")!, logger: NetworkLogger())
+    private let apiClient: APIClient = APIClient(baseURL: URL(string: "https://jsonplaceholder.typicode.com")!)
     
     override func viewDidLoad() {
         super.viewDidLoad()

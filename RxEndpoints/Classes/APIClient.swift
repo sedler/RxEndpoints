@@ -33,9 +33,12 @@ public final class APIClient {
     private let queue = DispatchQueue(label: "com.martindaum.APIClient")
     private var headers: [String: String] = [:]
     private var logger: NetworkLogger?
-    private var errorHandler: APIErrorHandler?
     
-    public init(baseURL: URL, configuration: URLSessionConfiguration = URLSessionConfiguration.default, trustedDomains: [String] = [], headers: [String: String] = [:], logger: NetworkLogger? = nil, errorHandler: APIErrorHandler? = nil) {
+    private var internalRequestAdapter: APIClientRequestAdapter?
+    private var internalRequestRetrier: APIClientRequestRetrier?
+    public var requestValidator: RequestValidator?
+    
+    public init(baseURL: URL, configuration: URLSessionConfiguration = URLSessionConfiguration.default, trustedDomains: [String] = []) {
         
         var serverTrustPolicies: [String: ServerTrustPolicy] = [:]
         trustedDomains.forEach({ serverTrustPolicies[$0] = .disableEvaluation })
@@ -43,9 +46,34 @@ public final class APIClient {
         
         self.baseURL = baseURL
         self.manager = Alamofire.SessionManager(configuration: configuration, serverTrustPolicyManager: serverTrustPolicyManger)
-        self.headers = headers
-        self.logger = logger
-        self.errorHandler = errorHandler
+    }
+    
+    public var requestAdapter: RequestAdapter? {
+        set {
+            if let adapter = newValue {
+                internalRequestAdapter = APIClientRequestAdapter(adapter: adapter)
+            } else {
+                internalRequestAdapter = nil
+            }
+            manager.adapter = internalRequestAdapter
+        }
+        get {
+            return internalRequestAdapter?.adapter
+        }
+    }
+    
+    public var requestRetrier: RequestRetrier? {
+        set {
+            if let retrier = newValue {
+                internalRequestRetrier = APIClientRequestRetrier(retrier: retrier)
+            } else {
+                internalRequestRetrier = nil
+            }
+            manager.retrier = internalRequestRetrier
+        }
+        get {
+            return internalRequestRetrier?.retrier
+        }
     }
     
     public func setLogger(_ logger: NetworkLogger) {
@@ -69,7 +97,7 @@ public final class APIClient {
             let request = self.manager.request(self.url(path: endpoint.path), method: endpoint.method.httpMethod, parameters: endpoint.parameters, encoding: endpoint.encoding.encoding, headers: self.headers)
             request
                 .log(with: self.logger, parameters: endpoint.parameters)
-                .customValidate(self.errorHandler)
+                .customValidate(self.requestValidator)
                 .responseData(queue: self.queue) { response in
                     self.logger?.logResponse(response)
                     let result = response.result.flatMap(endpoint.decode)
@@ -102,17 +130,20 @@ extension DataRequest {
 }
 
 extension DataRequest {
-    public func customValidate(_ errorHandler: APIErrorHandler?) -> Self {
-        guard let errorHandler = errorHandler, errorHandler.usesCustomValidation else {
+    public func customValidate(_ validator: RequestValidator?) -> Self {
+        guard let validator = validator else {
             return validate()
         }
         
-        return validate { _, response, data in
+        return validate { request, response, data in
             let statusCode = response.httpStatusCode
-            if let error = errorHandler.validate(statusCode: statusCode, json: data) {
+            
+            do {
+                try validator.validate(statusCode: statusCode, request: request, response: response, data: data)
+                return .success
+            } catch {
                 return .failure(error)
             }
-            return .success
         }
     }
 }
