@@ -292,7 +292,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-RxEndpoints_Example/Pods-RxEndpoints_Example-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-RxEndpoints_Example/Pods-RxEndpoints_Example-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/RxEndpoints/RxEndpoints.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
@@ -305,7 +305,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RxEndpoints_Example/Pods-RxEndpoints_Example-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RxEndpoints_Example/Pods-RxEndpoints_Example-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FC8BB4C0FFC7020C1DD35E7A /* [CP] Check Pods Manifest.lock */ = {
