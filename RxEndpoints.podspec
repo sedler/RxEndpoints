@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name             = 'RxEndpoints'
-  s.version          = '1.0.6'
-	s.summary 				 = 'Reactive API library written in Swift'
+  s.version          = '1.0.7'
+  s.summary 		 = 'Reactive API library written in Swift'
   s.homepage         = 'https://github.com/martindaum/RxEndpoints'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'martindaum' => 'office@martindaum.com' }
@@ -13,7 +13,7 @@ Pod::Spec.new do |s|
   s.watchos.deployment_target = '2.0'
 
   s.source_files = 'RxEndpoints/Classes/**/*'
-  s.swift_version = '4.2'
-  s.dependency 'Alamofire', '~> 4.0'
-  s.dependency 'RxSwift', '~> 4.0'
+  s.swift_version = '5.0'
+  s.dependency 'Alamofire'
+  s.dependency 'RxSwift'
 end

@@ -83,7 +83,7 @@ public enum HTTPStatusCode: Int {
     case siteIsFrozen = 530
 }
 
-public extension HTTPStatusCode {
+extension HTTPStatusCode {
     public var isInformational: Bool {
         return isIn(range: 100...199)
     }
@@ -109,7 +109,7 @@ public extension HTTPStatusCode {
     }
 }
 
-public extension HTTPStatusCode {
+extension HTTPStatusCode {
     public var localizedReasonPhrase: String {
         return HTTPURLResponse.localizedString(forStatusCode: rawValue)
     }
@@ -131,7 +131,7 @@ extension HTTPStatusCode: CustomDebugStringConvertible, CustomStringConvertible 
 
 // MARK: - HTTP URL Response
 
-public extension HTTPStatusCode {
+extension HTTPStatusCode {
     public init(response: HTTPURLResponse?) {
         guard let response = response else {
             self = .unknown
@@ -145,7 +145,7 @@ public extension HTTPStatusCode {
     }
 }
 
-public extension HTTPURLResponse {
+extension HTTPURLResponse {
     public var httpStatusCode: HTTPStatusCode {
         return HTTPStatusCode(response: self)
     }

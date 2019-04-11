@@ -8,25 +8,6 @@
 import Alamofire
 import RxSwift
 
-public enum APIError: Error {
-    case responseError
-    case serverError(statusCode: HTTPStatusCode, message: String)
-    case validationError(message: String, property: String?)
-}
-
-extension APIError: LocalizedError {
-    public var errorDescription: String? {
-        switch self {
-        case .responseError:
-            return "response error"
-        case .validationError(let message, let property):
-            return "\(message) (\(property ?? ""))"
-        case .serverError(let statusCode, let message):
-            return "\(message) (\(statusCode))"
-        }
-    }
-}
-
 public final class APIClient {
     private let manager: Alamofire.SessionManager
     private let baseURL: URL
