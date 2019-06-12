@@ -12,7 +12,6 @@ public final class APIClient {
     private let manager: Alamofire.SessionManager
     private let baseURL: URL
     private let queue = DispatchQueue(label: NSUUID().uuidString)
-    private var headers: [String: String] = [:]
     private var logger: NetworkLogger?
     
     private var internalRequestAdapter: APIClientRequestAdapter?
@@ -61,21 +60,9 @@ public final class APIClient {
         self.logger = logger
     }
     
-    public func setHeader(_ value: String, for key: String) {
-        headers[key] = value
-    }
-    
-    public func removeHeader(for key: String) {
-        headers.removeValue(forKey: key)
-    }
-    
-    public func clearHeaders() {
-        headers = [:]
-    }
-    
     public func request<Response>(_ endpoint: Endpoint<Response>) -> Single<Response> {
         return Single<Response>.create { observer in
-            let request = self.manager.request(self.url(path: endpoint.path), method: endpoint.method.httpMethod, parameters: endpoint.parameters, encoding: endpoint.encoding.encoding, headers: self.headers)
+            let request = self.manager.request(self.url(path: endpoint.path), method: endpoint.method.httpMethod, parameters: endpoint.parameters, encoding: endpoint.encoding.encoding, headers: endpoint.headers ?? [:])
             request
                 .log(with: self.logger, parameters: endpoint.parameters)
                 .customValidate(self.requestValidator)

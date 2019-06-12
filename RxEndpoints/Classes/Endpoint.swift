@@ -72,13 +72,15 @@ public final class Endpoint<Response> {
     let method: Method
     let path: String
     let parameters: [String: Any]?
+    let headers: [String: String]?
     let encoding: ParameterEncoding
     let decode: (Data) throws -> Response
     
-    public init(method: Method = .get, path: String, parameters: [String: Any]? = nil, encoding: ParameterEncoding = .url, decode: @escaping (Data) throws -> Response) {
+    public init(method: Method = .get, path: String, parameters: [String: Any]? = nil, headers: [String: String]? = nil, encoding: ParameterEncoding = .url, decode: @escaping (Data) throws -> Response) {
         self.method = method
         self.path = path
         self.parameters = parameters
+        self.headers = headers
         self.encoding = encoding
         self.decode = decode
     }
