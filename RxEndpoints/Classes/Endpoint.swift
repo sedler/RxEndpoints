@@ -87,15 +87,15 @@ public final class Endpoint<Response> {
 }
 
 extension Endpoint where Response: Swift.Decodable {
-    public convenience init(method: Method = .get, path: String, parameters: [String: Any]? = nil, encoding: ParameterEncoding = .url, decoder: JSONDecoder = JSONDecoder()) {
-        self.init(method: method, path: path, parameters: parameters, encoding: encoding) {
+    public convenience init(method: Method = .get, path: String, parameters: [String: Any]? = nil, headers: [String: String]? = nil, encoding: ParameterEncoding = .url, decoder: JSONDecoder = JSONDecoder()) {
+        self.init(method: method, path: path, parameters: parameters, headers: headers, encoding: encoding) {
             try decoder.decode(Response.self, from: $0)
         }
     }
 }
 
 extension Endpoint where Response == Void {
-    public convenience init(method: Method = .get, path: String, parameters: [String: Any]? = nil, encoding: ParameterEncoding = .url) {
-        self.init(method: method, path: path, parameters: parameters, encoding: encoding, decode: { _ in () })
+    public convenience init(method: Method = .get, path: String, parameters: [String: Any]? = nil, headers: [String: String]? = nil, encoding: ParameterEncoding = .url) {
+        self.init(method: method, path: path, parameters: parameters, headers: headers, encoding: encoding, decode: { _ in () })
     }
 }
