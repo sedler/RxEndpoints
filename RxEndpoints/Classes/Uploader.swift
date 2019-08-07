@@ -8,8 +8,9 @@
 import Foundation
 import Alamofire
 import RxSwift
+import RxRelay
 
-public protocol Uploadable {
+public protocol Uploadable: Equatable {
     var fileUrl: URL { get }
 }
 
@@ -71,10 +72,10 @@ public final class UploadInfo<T: Uploadable> {
 
 public final class Uploader<T: Uploadable> {
     private let manager: Alamofire.SessionManager
-    
     private var internalRequestAdapter: APIClientRequestAdapter?
+    private let disposeBag = DisposeBag()
     
-    private var queue: [UploadInfo<T>] = []
+    private let queue = BehaviorRelay<[UploadInfo<T>]>(value: [])
     
     public init(configuration: URLSessionConfiguration = URLSessionConfiguration.background(withIdentifier: NSUUID().uuidString), trustedDomains: [String] = []) {
         var serverTrustPolicies: [String: ServerTrustPolicy] = [:]
@@ -101,9 +102,26 @@ public final class Uploader<T: Uploadable> {
     }
     
     public func upload(_ uploadable: T, toURL url: URL, method: Method = .post, headers: [String: String]? = nil, startImmediately: Bool = true) -> UploadInfo<T> {
+        var currentQueue = queue.value
+        if let existingUpload = currentQueue.first(where: { $0.object == uploadable }) {
+            return existingUpload
+        }
+        
         let uploadRequest = manager.upload(uploadable.fileUrl, to: url, method: method.httpMethod, headers: headers)
         let info = UploadInfo<T>(uploadable, request: uploadRequest)
-        queue.append(info)
+        currentQueue.append(info)
+        queue.accept(currentQueue)
+        
+        info.state
+            .subscribe { [weak self] event in
+                switch event {
+                case .completed, .error:
+                    self?.cleanQueue()
+                default:
+                    break
+                }
+            }
+            .disposed(by: disposeBag)
         
         if startImmediately {
             info.upload()
@@ -112,21 +130,16 @@ public final class Uploader<T: Uploadable> {
         return info
     }
     
-    public func activeUploads(cleanQueue: Bool = false) -> [UploadInfo<T>] {
-        if cleanQueue {
-            self.cleanQueue()
-        }
-        return queue
-    }
+    public private(set) lazy var activeUploads = queue.asObservable()
     
     public func cleanQueue() {
         var runningUploads: [UploadInfo<T>] = []
-        for upload in queue {
+        for upload in queue.value {
             if upload.request.uploadProgress.isCancelled || upload.request.uploadProgress.isFinished {
                 continue
             }
             runningUploads.append(upload)
         }
-        queue = runningUploads
+        queue.accept(runningUploads)
     }
 }
