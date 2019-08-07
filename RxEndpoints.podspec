@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'RxEndpoints'
-  s.version          = '1.1.3'
+  s.version          = '1.1.4'
   s.summary 		 = 'Reactive API library written in Swift'
   s.homepage         = 'https://github.com/martindaum/RxEndpoints'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
@@ -14,7 +14,7 @@ Pod::Spec.new do |s|
 
   s.source_files = 'RxEndpoints/Classes/**/*'
   s.swift_version = '5.0'
-  s.dependency 'Alamofire'
+  s.dependency 'Alamofire', '~> 4.8'
   s.dependency 'RxSwift', '~> 5.0'
   s.dependency 'RxRelay', '~> 5.0'
 end
