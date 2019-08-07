@@ -19,8 +19,14 @@ extension URL: Uploadable {
     }
 }
 
-public enum UploadState: Int {
-    case none, waiting, inProgress, cancelled, completed
+public enum UploadError: Error {
+    case cancelled
+}
+
+public enum UploadState {
+    case none
+    case waiting
+    case inProgress(progress: Progress)
 }
 
 public final class UploadInfo<T: Uploadable> {
@@ -28,10 +34,8 @@ public final class UploadInfo<T: Uploadable> {
     public let object: T
     let request: UploadRequest
     
-    private let progressSubject = BehaviorSubject<Progress>(value: Progress())
     private let stateSubject = BehaviorSubject<UploadState>(value: .none)
-    
-    public private(set) lazy var progress: Observable<Progress> = progressSubject.asObservable()
+
     public private(set) lazy var state: Observable<UploadState> = stateSubject.asObservable()
     
     init(_ object: T, request: UploadRequest) {
@@ -39,25 +43,19 @@ public final class UploadInfo<T: Uploadable> {
         self.object = object
         self.request = request
         
-        request.response { response in
-            print(response)
-        }
-        
-        request.uploadProgress { [weak self] progess in
-            if progess.isFinished {
-                self?.progressSubject.onCompleted()
-                self?.stateSubject.onNext(.completed)
-                
-                self?.progressSubject.onCompleted()
-                self?.stateSubject.onCompleted()
-                
-            } else {
-                self?.progressSubject.onNext(progess)
+        request
+            .uploadProgress { [weak self] progess in
                 if progess.fractionCompleted > 0 {
-                    self?.stateSubject.onNext(.inProgress)
+                    self?.stateSubject.onNext(.inProgress(progress: progess))
                 }
             }
-        }
+            .response { [weak self] response in
+                if let error = response.error {
+                    self?.stateSubject.onError(error)
+                } else {
+                    self?.stateSubject.onCompleted()
+                }
+            }
     }
     
     public func upload() {
@@ -67,8 +65,7 @@ public final class UploadInfo<T: Uploadable> {
     
     public func cancel() {
         request.cancel()
-        stateSubject.onNext(.cancelled)
-        progressSubject.onCompleted()
+        stateSubject.onError(UploadError.cancelled)
     }
 }
 
