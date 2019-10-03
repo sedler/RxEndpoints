@@ -36,7 +36,7 @@ public final class UploadInfo<T: Uploadable> {
     let request: UploadRequest
     
     private let stateSubject = BehaviorSubject<UploadState>(value: .none)
-
+    
     public private(set) lazy var state: Observable<UploadState> = stateSubject.asObservable()
     
     init(_ object: T, request: UploadRequest) {
@@ -45,6 +45,7 @@ public final class UploadInfo<T: Uploadable> {
         self.request = request
         
         request
+            .validate(statusCode: 200..<300)
             .uploadProgress { [weak self] progess in
                 if progess.fractionCompleted > 0 {
                     self?.stateSubject.onNext(.inProgress(progress: progess))
@@ -66,6 +67,7 @@ public final class UploadInfo<T: Uploadable> {
     
     public func cancel() {
         request.cancel()
+        request.uploadProgress.cancel()
         stateSubject.onError(UploadError.cancelled)
     }
 }
@@ -81,9 +83,6 @@ public final class Uploader<T: Uploadable> {
         var serverTrustPolicies: [String: ServerTrustPolicy] = [:]
         trustedDomains.forEach({ serverTrustPolicies[$0] = .disableEvaluation })
         let serverTrustPolicyManger = ServerTrustPolicyManager(policies: serverTrustPolicies)
-
-        configuration.httpMaximumConnectionsPerHost = 10
-        
         self.manager = Alamofire.SessionManager(configuration: configuration, serverTrustPolicyManager: serverTrustPolicyManger)
     }
     
@@ -141,5 +140,12 @@ public final class Uploader<T: Uploadable> {
             runningUploads.append(upload)
         }
         queue.accept(runningUploads)
+    }
+    
+    public func cancelAll() {
+        for info in queue.value {
+            info.cancel()
+        }
+        cleanQueue()
     }
 }
