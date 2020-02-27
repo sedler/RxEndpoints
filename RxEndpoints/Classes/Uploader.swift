@@ -22,6 +22,7 @@ extension URL: Uploadable {
 
 public enum UploadError: Error {
     case cancelled
+    case server(statusCode: Int?, response: Data?)
 }
 
 public enum UploadState {
@@ -53,7 +54,7 @@ public final class UploadInfo<T: Uploadable> {
             }
             .response { [weak self] response in
                 if let error = response.error {
-                    self?.stateSubject.onError(error)
+                    self?.stateSubject.onError(UploadError.server(statusCode: response.response?.statusCode, response: response.data))
                 } else {
                     self?.stateSubject.onCompleted()
                 }
