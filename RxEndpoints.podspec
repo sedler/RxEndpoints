@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'RxEndpoints'
-  s.version          = '1.2.2'
+  s.version          = '1.2.3'
   s.summary 		 = 'Reactive API library written in Swift'
   s.homepage         = 'https://github.com/martindaum/RxEndpoints'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
