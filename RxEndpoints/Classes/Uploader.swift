@@ -29,6 +29,7 @@ public enum UploadState {
     case none
     case waiting
     case inProgress(progress: Progress)
+    case completed(response: DefaultDataResponse)
 }
 
 public final class UploadInfo<T: Uploadable> {
@@ -56,6 +57,7 @@ public final class UploadInfo<T: Uploadable> {
                 if let error = response.error {
                     self?.stateSubject.onError(UploadError.server(statusCode: response.response?.statusCode, response: response.data))
                 } else {
+                    self?.stateSubject.onNext(.completed(response: response))
                     self?.stateSubject.onCompleted()
                 }
             }
@@ -150,3 +152,4 @@ public final class Uploader<T: Uploadable> {
         cleanQueue()
     }
 }
+
