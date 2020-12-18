@@ -13,8 +13,8 @@ Pod::Spec.new do |s|
   s.watchos.deployment_target = '3.0'
 
   s.source_files = 'RxEndpoints/Classes/**/*'
-  s.swift_version = '5.0'
+  s.swift_version = '5.1'
   s.dependency 'Alamofire', '4.9.1'
-  s.dependency 'RxSwift', '5.0.1'
-  s.dependency 'RxRelay', '5.0.1'
+  s.dependency 'RxSwift', '5.1.1'
+  s.dependency 'RxRelay', '5.1.1'
 end
